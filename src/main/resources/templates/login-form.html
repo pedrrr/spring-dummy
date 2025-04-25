@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .error{
+            font-style: italic;
+            color: firebrick;
+        }
+        .logout{
+            font-style: italic;
+            color: cornflowerblue;
+        }
+    </style>
+
+
+    <title>Login Page</title>
+</head>
+<body>
+
+<h3>Login Page</h3>
+
+<hr>
+
+<form action="#" th:action="@{/authenticate-user}" method="POST">
+
+    <div th:if="${param.error}">
+        <p class="error">* Invalid username or password entered.</p>
+    </div>
+    <div th:if="${param.logout}">
+        <p class="logout">* You have been logged out.</p>
+    </div>
+
+    Username: <br>
+    <input type="text" name="username">
+    <br><br>
+
+    Password: <br>
+    <input type="password" name="password">
+    <br><br>
+
+    <input type="submit" value="Login">
+
+</form>
+
+<hr>
+
+<h3>Or Access Via Magic Link!</h3>
+
+<form>
+
+    Username: <br>
+    <input type="text" name="username">
+    <br><br>
+
+    <input type="submit" value="Send link">
+</form>
+
+</body>
+</html>

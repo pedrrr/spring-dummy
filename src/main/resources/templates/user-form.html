@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User registration form</title>
+</head>
+<body>
+
+    <div th:object="${user}">
+
+        <p th:if="${user.id}"
+        >Update User</p>
+        <p th:if="${user.id == null}"
+        >Register User</p>
+
+        <form action="#" th:action="@{/user/save}" th:Object="${user}" method="POST">
+            <input type="hidden" th:field="*{id}">
+
+            <label for="username" th:text="Username"></label>
+            <input type="text" id="username" th:field="*{username}">
+            <label for="email" th:text="Email"></label>
+            <input type="text" id="email" th:field="*{email}">
+            <label for="password" th:text="Password"></label>
+            <input type="text" id="password" th:field="*{password}">
+
+            <label>Role</label>
+            <select name="role" th:field="*{role}">
+                <option th:each="role : ${T(com.example.h2_restful.entity.user.Role).values()}"
+                        th:value="${role}"
+                        th:text="${role.displayValue}">
+                </option>
+            </select>
+
+            <input type="submit" value="Save...">
+        </form>
+
+    </div>
+
+</body>
+</html>

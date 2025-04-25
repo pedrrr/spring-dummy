@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+
+<p>
+    Welcome, <span sec:authentication="principal.username"></span>
+</p>
+<h3>Users Registered</h3>
+<hr>
+
+    <div>
+        <ul th:each="user: ${users}" style="list-style-type: none">
+            <li th:text="${user.id}" ></li>
+            <br><br>
+            <li th:text="${user.username}"></li>
+            <li th:text="${user.email}"></li>
+            <li th:text="${user.password}"></li>
+            <li th:text="${user.role}"></li>
+            <br>
+
+            <a type="button"
+                  th:href="@{user/update(id=${user.id})}"
+                  > Update.
+            </a>
+
+            <a type="button"
+                  th:href="@{user/delete(id=${user.id})}"
+                  onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false"
+                  > Delete.
+            </a>
+            <br><br>
+            <br><br>
+        </ul>
+    </div>
+
+<hr>
+
+<form action="#" th:action="@{/logout}" method="POST">
+    <input type="submit" value="Logout">
+</form>
+
+</body>
+</html>
