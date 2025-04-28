@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserCRUDController {
 
     private final UserService userService;
     private final UserRegistrationService userRegistrationService;
-    public UserController(UserService userService,
-                          UserRegistrationService userRegistrationService) {
+    public UserCRUDController(UserService userService,
+                              UserRegistrationService userRegistrationService) {
         this.userService = userService;
         this.userRegistrationService = userRegistrationService;
     }

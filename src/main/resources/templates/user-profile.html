@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title sec:authentication="principal.username">'s Profile</title>
+</head>
+<body>
+
+<p>
+    Welcome, <span sec:authentication="principal.username"></span>
+</p>
+<h3>Your currently access level is
+    <div th:each="authority : ${#authentication.authorities}">
+
+    <span th:text="${authority.authority}"
+            style="font-size: 12px;
+            font-style: italic;
+            font-weight: normal"></span>
+
+    </div>
+</h3>
+
+
+
+<hr>
+
+<form action="#" th:action="@{/logout}" method="POST">
+    <input type="submit" value="Logout">
+</form>
+
+</body>
+</html>
