@@ -54,7 +54,7 @@ public class LogController {
         // deletes ott from database
         oneTimeTokenService.delete(ott.get());
 
-        return "redirect:/user";
+        return "redirect:/me";
     }
 
 }

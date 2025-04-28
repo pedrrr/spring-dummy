@@ -42,7 +42,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests( configurer -> configurer
-                        .requestMatchers("user/register")
+                        .requestMatchers("/user/register", "/auth/login-one-time")
                         .permitAll()
                         .anyRequest()
                         .authenticated())

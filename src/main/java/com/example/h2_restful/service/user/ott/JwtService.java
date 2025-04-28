@@ -25,10 +25,22 @@ public class JwtService implements InitializingBean {
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String createToken(String subject) {
+    public String createFirstAccessToken(String subject) {
 
         return Jwts.builder()
                 .setSubject(subject)
+                .claim("token-type", "first-access")
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 500)) // um mês
+                .signWith(secretKey, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public String createForgotPasswordToken(String subject) {
+
+        return Jwts.builder()
+                .setSubject(subject)
+                .claim("token-type", "forgot-password")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 500)) // um mês
                 .signWith(secretKey, SignatureAlgorithm.HS256)

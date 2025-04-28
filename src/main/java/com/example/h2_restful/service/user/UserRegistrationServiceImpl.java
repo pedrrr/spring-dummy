@@ -43,7 +43,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         user.setPassword(hashedPassword);
 
         // creates a JWT token used for a first time log
-        String token = jwtService.createToken(user.getEmail());
+        String token = jwtService.createFirstAccessToken(user.getEmail());
 
         Date expirationDate = jwtService.extractExpirationDate(token);
         String userEmail = jwtService.extractSubject(token);
