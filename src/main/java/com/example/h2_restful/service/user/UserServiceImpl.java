@@ -2,9 +2,6 @@ package com.example.h2_restful.service.user;
 
 import com.example.h2_restful.dao.UserRepository;
 import com.example.h2_restful.entity.user.User;
-import com.example.h2_restful.service.user.ott.JwtService;
-import com.example.h2_restful.service.user.ott.OneTimeTokenService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,18 +11,10 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
-    private final OneTimeTokenService oneTimeTokenService;
 
-    public UserServiceImpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder,
-                           JwtService jwtService,
-                           OneTimeTokenService oneTimeTokenService) {
+
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-        this.oneTimeTokenService = oneTimeTokenService;
     }
 
     @Override

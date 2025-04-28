@@ -20,7 +20,7 @@ public class JwtService implements InitializingBean {
     private String secret;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet(){
 
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
     }
@@ -31,7 +31,7 @@ public class JwtService implements InitializingBean {
                 .setSubject(subject)
                 .claim("token-type", "first-access")
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 500)) // um mês
+                .setExpiration(new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 500)) // duas semanas
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -42,7 +42,7 @@ public class JwtService implements InitializingBean {
                 .setSubject(subject)
                 .claim("token-type", "forgot-password")
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 500)) // um mês
+                .setExpiration(new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 500)) // duas semanas
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }

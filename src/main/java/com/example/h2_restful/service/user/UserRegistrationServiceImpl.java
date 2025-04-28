@@ -24,13 +24,13 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
     public void register(User user) {
 
         user.setEnabled(true);
-        userService.save(user);
 
         // gets user password submitted by the form and hashes it using BCrypt before
         // saving to database.
         String plainPassword = user.getPassword();
         String hashedPassword = passwordEncoder.encode(plainPassword);
         user.setPassword(hashedPassword);
+        userService.save(user);
 
         magicLinkService.createFirstAccessMagicLink(user);
     }
