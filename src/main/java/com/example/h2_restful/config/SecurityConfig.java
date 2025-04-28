@@ -2,6 +2,8 @@ package com.example.h2_restful.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -42,7 +44,8 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests( configurer -> configurer
-                        .requestMatchers("/user/register", "/auth/login-one-time")
+                        .requestMatchers("/user/register",
+                                "/auth/login-one-time", "/me")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
@@ -58,6 +61,14 @@ public class SecurityConfig {
                         .permitAll());
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
+
+        return authenticationManagerBuilder.build();
     }
 
     @Bean

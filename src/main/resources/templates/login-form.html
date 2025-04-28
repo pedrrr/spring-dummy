@@ -47,9 +47,9 @@
 
 <h3>Or Access Via Magic Link!</h3>
 
-<form>
+<form action="#" th:action="@{/magic-linking}" th:object="${username}" method="POST">
 
-    Username: <br>
+    Username or email: <br>
     <input type="text" name="username">
     <br><br>
 

@@ -5,8 +5,13 @@ import com.example.h2_restful.entity.user.User;
 import com.example.h2_restful.service.user.UserService;
 import com.example.h2_restful.service.user.ott.JwtService;
 import com.example.h2_restful.service.user.ott.OneTimeTokenService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,12 +24,15 @@ public class LogController {
     OneTimeTokenService oneTimeTokenService;
     JwtService jwtService;
     UserService userService;
+    AuthenticationManager authenticationManager;
     public LogController(OneTimeTokenService oneTimeTokenService,
                          JwtService jwtService,
-                         UserService userService) {
+                         UserService userService,
+                         AuthenticationManager authenticationManager) {
         this.oneTimeTokenService = oneTimeTokenService;
         this.jwtService = jwtService;
         this.userService = userService;
+        this.authenticationManager = authenticationManager;
     }
 
     @GetMapping("/login")
@@ -34,7 +42,7 @@ public class LogController {
     }
 
     @GetMapping("/auth/login-one-time")
-    public String magicLinkLogin(@RequestParam("token") String token) {
+    public String magicLinkLogin(@RequestParam("token") String token, HttpServletRequest request) {
 
         // todo: check if token isn't expired + add a way to differentiate registration tokens from 'forgot password' tokens
         // retrieves OneTimeToken from database based on token provided though a request parameter.
@@ -47,14 +55,34 @@ public class LogController {
         User user = ott.get().getUser();
 
         // authenticate user
-        UsernamePasswordAuthenticationToken auth =
+        UsernamePasswordAuthenticationToken authToken =
                 new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        SecurityContext context = SecurityContextHolder.getContext();
+        context.setAuthentication(authToken);
+
+        // saves the security context in the current session, allowing thymeleaf properly to access sec:authentication
+        HttpSession session = request.getSession(true);
+        session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, context);
+
 
         // deletes ott from database
-        oneTimeTokenService.delete(ott.get());
+        // oneTimeTokenService.delete(ott.get());
 
         return "redirect:/me";
     }
+
+//    @PostMapping("/magic-linking")
+//    public String createMagicLink(@RequestParam("username") String username){
+//
+//        Optional<User> user = userService.findByUsernameOrEmail(username, username);
+//        if(user.isEmpty()){
+//            throw new RuntimeException("User not found.");
+//        }
+//
+//        jwtService.createForgotPasswordToken(user.get().getEmail());
+//
+//    }
+
 
 }
