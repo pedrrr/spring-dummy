@@ -3,7 +3,7 @@ package com.example.h2_restful.service.user.magicLink;
 import com.example.h2_restful.entity.user.OneTimeToken;
 import com.example.h2_restful.entity.user.User;
 import com.example.h2_restful.service.user.notification.NotificationService;
-import com.example.h2_restful.service.user.ott.JwtService;
+import com.example.h2_restful.service.user.jwt.JwtServiceImpl;
 import com.example.h2_restful.service.user.ott.OneTimeTokenService;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +13,10 @@ import java.util.Date;
 public class MagicLinkServiceImpl implements MagicLinkService {
 
     private final NotificationService notificationService;
-    private final JwtService jwtService;
+    private final JwtServiceImpl jwtService;
     private final OneTimeTokenService oneTimeTokenService;
     public MagicLinkServiceImpl(NotificationService notificationService,
-                                JwtService jwtService,
+                                JwtServiceImpl jwtService,
                                 OneTimeTokenService oneTimeTokenService) {
         this.notificationService = notificationService;
         this.jwtService = jwtService;

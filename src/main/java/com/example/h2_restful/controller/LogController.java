@@ -4,7 +4,7 @@ import com.example.h2_restful.entity.user.OneTimeToken;
 import com.example.h2_restful.entity.user.User;
 import com.example.h2_restful.service.user.UserService;
 import com.example.h2_restful.service.user.magicLink.MagicLinkService;
-import com.example.h2_restful.service.user.ott.JwtService;
+import com.example.h2_restful.service.user.jwt.JwtServiceImpl;
 import com.example.h2_restful.service.user.ott.OneTimeTokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -24,12 +24,12 @@ import java.util.Optional;
 public class LogController {
 
     OneTimeTokenService oneTimeTokenService;
-    JwtService jwtService;
+    JwtServiceImpl jwtService;
     UserService userService;
     AuthenticationManager authenticationManager;
     MagicLinkService magicLinkService;
     public LogController(OneTimeTokenService oneTimeTokenService,
-                         JwtService jwtService,
+                         JwtServiceImpl jwtService,
                          UserService userService,
                          AuthenticationManager authenticationManager,
                          MagicLinkService magicLinkService) {

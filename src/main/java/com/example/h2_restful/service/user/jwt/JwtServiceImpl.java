@@ -1,4 +1,4 @@
-package com.example.h2_restful.service.user.ott;
+package com.example.h2_restful.service.user.jwt;
 
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -12,7 +12,7 @@ import java.security.Key;
 import java.util.Date;
 
 @Service
-public class JwtService implements InitializingBean {
+public class JwtServiceImpl implements InitializingBean, JwtService {
 
     private Key secretKey;
 
