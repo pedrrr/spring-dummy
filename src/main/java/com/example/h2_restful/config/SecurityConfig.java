@@ -45,7 +45,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests( configurer -> configurer
                         .requestMatchers("/user/register",
-                                "/auth/login-one-time", "/me")
+                                "/auth/login-one-time",
+                                "/magic-linking")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
