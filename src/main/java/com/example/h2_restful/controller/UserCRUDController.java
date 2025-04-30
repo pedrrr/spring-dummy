@@ -19,6 +19,8 @@ public class UserCRUDController {
         this.userRegistrationService = userRegistrationService;
     }
 
+
+    // basic CRUD operations
     @GetMapping
     public String getAllUsers(Model model) {
 
@@ -27,7 +29,7 @@ public class UserCRUDController {
     }
 
     @GetMapping("/register")
-    public String createUser(Model model, @ModelAttribute User user) {
+    public String createUser(Model model) {
 
         model.addAttribute("user", new User());
         return "user-form";
@@ -52,6 +54,5 @@ public class UserCRUDController {
         userService.deleteById(id);
         return "redirect:/user";
     }
-
 
 }

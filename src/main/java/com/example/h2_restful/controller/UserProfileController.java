@@ -1,12 +1,12 @@
 package com.example.h2_restful.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class UserProfileController {
 
-    @RequestMapping("/me")
+    @GetMapping("/me")
     public String profile() {
         return "user-profile";
     }

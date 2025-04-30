@@ -56,7 +56,7 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/user", true)
                         .permitAll())
                 .passwordManagement( management -> management
-                        .changePasswordPage("/change-password")) // actually the default password change URL.
+                        .changePasswordPage("/settings/update-password")) //
                 .logout( logout -> logout
                         .logoutUrl("/logout")
                         .permitAll());

@@ -13,11 +13,13 @@
         <p th:if="${user.id == null}"
         >Register User</p>
 
-        <form action="#" th:action="@{/user/save}" th:Object="${user}" method="POST">
+        <form action="#" th:action="@{/user/save}" th:object="${user}" method="POST">
             <input type="hidden" th:field="*{id}">
 
             <label for="username" th:text="Username"></label>
             <input type="text" id="username" th:field="*{username}">
+            <label for="display_name" th:text="Display name"></label>
+            <input type="text" id="display_name" th:field="*{displayName}">
             <label for="email" th:text="Email"></label>
             <input type="text" id="email" th:field="*{email}">
             <label for="password" th:text="Password"></label>
