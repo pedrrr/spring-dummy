@@ -34,8 +34,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(User user) {
+    public Optional<User> findByUsernameIgnoreCase(String username) {
+        return userRepository.findByUsernameIgnoreCase(username);
+    }
 
+    @Override
+    public User save(User user) {
         return userRepository.save(user);
     }
 

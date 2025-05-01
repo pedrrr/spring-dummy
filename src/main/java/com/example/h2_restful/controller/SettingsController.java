@@ -48,7 +48,7 @@ public class SettingsController {
         } else {
             user.get().setPassword(passwordEncoder.encode(newPasswordEntered));
             userService.save(user.get());
-            return "redirect:/me";
+            return "redirect:/" + user.get().getUsername();
         }
     }
 }

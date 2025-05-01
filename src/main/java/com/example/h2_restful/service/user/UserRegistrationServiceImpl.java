@@ -25,6 +25,9 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 
         user.setEnabled(true);
 
+        // sets username to lowercase. mainly to avoid check problems later on...
+        user.setUsername(user.getUsername().toLowerCase());
+
         // gets user password submitted by the form and hashes it using BCrypt before
         // saving to database.
         String plainPassword = user.getPassword();

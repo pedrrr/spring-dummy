@@ -13,4 +13,5 @@ public interface UserService {
     void deleteById(Long id);
 
     Optional<User> findByUsernameOrEmail(String username, String email);
+    Optional<User> findByUsernameIgnoreCase(String username);
 }

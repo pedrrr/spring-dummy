@@ -7,6 +7,8 @@ import com.example.h2_restful.service.user.magicLink.MagicLinkService;
 import com.example.h2_restful.service.user.ott.OneTimeTokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,7 +46,15 @@ public class LogController {
     public String magicLinkLogin(@RequestParam("token") String token, HttpServletRequest request) {
 
         magicLinkService.authenticate(token, request);
-        return "redirect:/me";
+
+
+        // retrieves now authenticated user's username from spring security context
+        SecurityContext context = SecurityContextHolder.getContext();
+        User user = (User) context.getAuthentication().getPrincipal();
+        String authenticatedUsername = user.getUsername();
+
+        // redirects user to its own profile page
+        return "redirect:/" + authenticatedUsername;
     }
 
     @PostMapping("/magic-linking")

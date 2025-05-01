@@ -3,15 +3,20 @@
       xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title sec:authentication="principal.username">'s Profile</title>
+    <title th:text="${user.getUsername()} + ' / spring-dummy'"> </title>
 </head>
 <body>
 
-<p>
-    Welcome, <span sec:authentication="principal.username"></span>
-</p>
-<h3>Your currently access level is
-    <div th:each="authority : ${#authentication.authorities}">
+<div th:if="${ownProfile}">
+    <p>
+        Welcome, <span sec:authentication="principal.username"></span>
+    </p>
+</div>
+<div th:if="!${ownProfile}">
+    <p th:text="${user.getUsername()}'s profile page"></p>
+</div>
+<h3> Access level is
+    <div th:each="authority : ${user.getAuthorities()}">
 
     <span th:text="${authority.authority}"
             style="font-size: 12px;
