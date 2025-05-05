@@ -1,2 +1,2 @@
 INSERT INTO users (username, display_name,email, password, role, enabled)
-VALUES ('glad0s', 'Glad0s','aperture@science', '$2a$10$zZsftQ8Co9oQbKCBsAt9qe6KK8GfMLs9w3HVvJrO7iUAWXLdK/zEa', 'ROLE_ADMIN', true);
+VALUES ('glad0s', 'Glad0s','aperture@science', '$2a$10$VxZq13QrdOhb20N8GfNKTeM2IYkC1Sg9VszlX.Tbb9Y.gR6f1HlXe', 'ROLE_ADMIN', true);
