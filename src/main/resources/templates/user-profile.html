@@ -10,6 +10,7 @@
 <div th:if="${ownProfile}">
     <p>
         Welcome, <span sec:authentication="principal.username"></span>
+        <span sec:authentication="authorities"></span>
     </p>
 </div>
 <div th:if="!${ownProfile}">

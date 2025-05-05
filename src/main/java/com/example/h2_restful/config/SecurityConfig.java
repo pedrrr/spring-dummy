@@ -2,6 +2,7 @@ package com.example.h2_restful.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +17,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@EnableScheduling
 public class SecurityConfig {
 
 
@@ -56,7 +58,7 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/user", true)
                         .permitAll())
                 .passwordManagement( management -> management
-                        .changePasswordPage("/settings/update-password")) //
+                        .changePasswordPage("/settings/update-password"))
                 .logout( logout -> logout
                         .logoutUrl("/logout")
                         .permitAll());

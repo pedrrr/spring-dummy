@@ -6,7 +6,10 @@ import com.example.h2_restful.service.user.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -37,6 +40,7 @@ public class SettingsController {
         String newPasswordEntered = userDTO.newPassword;
 
         String username = principal.getName();
+
 
         Optional<User> user = userService.findByUsernameOrEmail(username, username);
         if(user.isEmpty()){

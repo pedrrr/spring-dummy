@@ -8,7 +8,7 @@
 <body>
 
 <p>
-    Welcome, <span sec:authentication="principal.username"></span>
+    Welcome, <a th:href="@{'/' + ${#authentication.name}}"><span sec:authentication="principal.username"></span></a>
 </p>
 <h3>Users Registered</h3>
 <hr>
