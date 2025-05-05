@@ -1,4 +1,4 @@
-package com.example.h2_restful.service.user.jwt;
+package com.example.h2_restful.security.jwt;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.example.h2_restful.service.user.jwt;
+package com.example.h2_restful.security.jwt;
 
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -31,7 +31,7 @@ public class JwtServiceImpl implements InitializingBean, JwtService {
                 .setSubject(subject)
                 .claim("token-type", "first-access")
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 500)) // duas semanas
+                .setExpiration(new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 500)) // two weeks
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -42,7 +42,7 @@ public class JwtServiceImpl implements InitializingBean, JwtService {
                 .setSubject(subject)
                 .claim("token-type", "forgot-password")
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 500)) // duas semanas
+                .setExpiration(new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 500)) // two weeks
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }

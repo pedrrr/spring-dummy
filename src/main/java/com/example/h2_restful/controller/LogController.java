@@ -1,14 +1,17 @@
 package com.example.h2_restful.controller;
 
 import com.example.h2_restful.entity.user.User;
+import com.example.h2_restful.security.jwt.JwtAuthenticationToken;
+import com.example.h2_restful.security.jwt.JwtServiceImpl;
 import com.example.h2_restful.service.user.UserService;
-import com.example.h2_restful.service.user.jwt.JwtServiceImpl;
 import com.example.h2_restful.service.user.magicLink.MagicLinkService;
 import com.example.h2_restful.service.user.ott.OneTimeTokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,11 +48,16 @@ public class LogController {
     @GetMapping("/auth/login-one-time")
     public String magicLinkLogin(@RequestParam("token") String token, HttpServletRequest request) {
 
-        magicLinkService.authenticate(token, request);
+        Authentication auth = new JwtAuthenticationToken(token);
+        Authentication result = authenticationManager.authenticate(auth);
 
+        // saves authentication on the session, allowing thymeleaf to access sec:authentication
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(result);
+        request.getSession(true).setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, context);
 
         // retrieves now authenticated user's username from spring security context
-        SecurityContext context = SecurityContextHolder.getContext();
+        context = SecurityContextHolder.getContext();
         User user = (User) context.getAuthentication().getPrincipal();
         String authenticatedUsername = user.getUsername();
 
